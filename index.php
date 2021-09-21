@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <!-- Formulario para crear nuevos empleados -->
+    <!-- Formulario para crear nuevos productos -->
     <h1>Formulario Empresa</h1>
     <div class="container">
         <form class="d-flex" action="crud_producto.php" method="post">
