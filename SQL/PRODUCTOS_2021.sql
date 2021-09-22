@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: db_empresa_2021
+-- Host: localhost    Database: segundoparcial
 -- ------------------------------------------------------
--- Server version	8.0.16
+-- Server version	5.6.51-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,89 +16,67 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `marcas`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `marcas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
-  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
-  `nit` varchar(9) NOT NULL,
-  `nombres` varchar(60) NOT NULL,
-  `apellidos` varchar(60) NOT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `telefono` int(11) DEFAULT NULL,
-  `fecha_nacimiento` date DEFAULT NULL,
-  PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `marcas` (
+  `idmarca` smallint(6) NOT NULL AUTO_INCREMENT,
+  `marca` varchar(50) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  PRIMARY KEY (`idmarca`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `marcas`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'44878555','Jhensser Andree','Aguirre Galdamez','4ta calle 4-15',35410540,'2000-01-02'),(2,'23463','Mario ','Sinay','San Felipe',23450099,'2000-03-11');
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `marcas` WRITE;
+/*!40000 ALTER TABLE `marcas` DISABLE KEYS */;
+INSERT INTO `marcas` VALUES (3,'HP'),(4,'Dell');
+/*!40000 ALTER TABLE `marcas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `empleados`
+-- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `empleados`;
+DROP TABLE IF EXISTS `productos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `empleados` (
-  `id_empleado` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(9) DEFAULT NULL,
-  `nombres` varchar(60) DEFAULT NULL,
-  `apellidos` varchar(60) DEFAULT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `telefono` varchar(8) DEFAULT NULL,
-  `fecha_nacimiento` date DEFAULT NULL,
-  `id_puesto` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_empleado`),
-  KEY `puesto_idx` (`id_puesto`),
-  CONSTRAINT `fk_id_puestos_empleados_puestos` FOREIGN KEY (`id_puesto`) REFERENCES `puestos` (`id_puesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `productos` (
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+  `producto` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `precio_costo` decimal(8,2) NOT NULL,
+  `precio_venta` decimal(8,2) NOT NULL,
+  `existencia` int(11) NOT NULL,
+  `idmarca` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`idProducto`),
+  KEY `puesto_idx` (`idmarca`),
+  CONSTRAINT `productos_marcas_idmarca_fk` FOREIGN KEY (`idmarca`) REFERENCES `marcas` (`idmarca`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `empleados`
+-- Dumping data for table `productos`
 --
 
-LOCK TABLES `empleados` WRITE;
-/*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,'E200','Jhensser Andree','Aguirre Galdamez','4ta calle','35410540','2000-01-02',1),(2,'E300','Wilmer Omar','Aguirre Galdamez','3ra calle','35410577','1993-11-10',2),(9,'E600','Jhensser Wilmer','Aguirre Ardon','3ta callee','44218998','2021-08-10',2),(10,'E700','Alexis','Sanchez','3ra calle','55778855','2021-08-04',1),(11,'E800','Armando','Cardona','12345','35417740','2021-08-05',1),(12,'E900','Lionel Andres','Messi Chuchitini','Paris','22554455','2006-06-07',2),(13,'E100','Cristiano','Ronaldo','Italia','55448822','2021-08-03',2),(14,'E000','Gerard','Pique','Barcelona','78554422','2021-08-17',2),(15,'E101','Memphis','Depay','Barcelona','78554422','2021-08-05',1),(16,'E004','Jhensser Andr','Galdmez','12345','35410540','2021-08-17',1),(17,'E001','Jordi','Alba','Barcelona','87554422','2000-01-02',2);
-/*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (19,'Monitor','Monitor Gaming',500.00,1000.00,20,4),(21,'Monitor ','Monitor Gaming 80 Pulgadas',300.00,600.00,100,3),(22,'Teclado','Mecanico',800.00,100.00,200,3);
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `puestos`
+-- Dumping events for database 'segundoparcial'
 --
 
-DROP TABLE IF EXISTS `puestos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `puestos` (
-  `id_puesto` smallint(6) NOT NULL AUTO_INCREMENT,
-  `puesto` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`id_puesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
--- Dumping data for table `puestos`
+-- Dumping routines for database 'segundoparcial'
 --
-
-LOCK TABLES `puestos` WRITE;
-/*!40000 ALTER TABLE `puestos` DISABLE KEYS */;
-INSERT INTO `puestos` VALUES (1,'Programador'),(2,'Gerente');
-/*!40000 ALTER TABLE `puestos` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -109,4 +87,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-29 15:21:58
+-- Dump completed on 2021-09-22 11:59:52
